@@ -55,4 +55,9 @@ public class AvatarService {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return avatarRepository.findAll(pageRequest).getContent();
     }
+  /*  public List<AvatarDto> findAllStudentAvatars(Integer pageNumber, Integer pageSize) {
+        return avatarRepository.findAll(pageRequest.of(pageNumber, pageSize)).getContent().stream()
+                .map(a -> new AvatarDto(a.getStudent().getName(), "http://localhost.8080/avatar/from-db/" - a.getId()))
+                .toList();
+    } */
 }

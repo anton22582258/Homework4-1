@@ -67,6 +67,12 @@ public class AvatarController {
         return ResponseEntity.ok(avatarService.findAllStudentAvatars(pageNumber,pageSize));
 
     }
+/*    @GetMapping(value = "/all-avatar-from-db")
+    public ResponseEntity<List<AvatarDto>> downloadAllAvatar(@RequestParam("page") Integer pageNumber,
+                                                          @RequestParam("size") Integer pageSize) {
+        return ResponseEntity.ok(avatarService.findAllStudentAvatars(pageNumber,pageSize));
+
+    } */
 
 
 }
