@@ -8,6 +8,7 @@ import ru.hogwarts.school5.model.Student;
 import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
+    List<Student> getStudentByName(String name);
     List<Student> findAllByAge(int age);
 
     List<Student> findAllByAgeBetween(int min, int max);

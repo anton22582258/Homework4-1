@@ -2,6 +2,7 @@ package ru.hogwarts.school5.controller;
 
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school5.model.Faculty;
 import ru.hogwarts.school5.model.Student;
@@ -33,6 +34,11 @@ public class StudentController {
     @GetMapping("/filtered")
     public Collection<Student> getByAge(@RequestParam("age") int age) {
         return studentService.getByAge(age);
+    }
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<Student>> getStudentByName(@PathVariable("name")String name) {
+        List<Student> students = studentService.getStudentByName(name);
+        return ResponseEntity.ok(students);
     }
 
     @PostMapping
