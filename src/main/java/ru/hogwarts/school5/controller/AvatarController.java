@@ -61,10 +61,10 @@ public class AvatarController {
 
         }
     }
+
     @GetMapping(value = "/all-avatar-from-db")
-    public ResponseEntity<List<Avatar>> downloadAllAvatar(@RequestParam("page") Integer pageNumber,
-                                                          @RequestParam("size") Integer pageSize) {
-        return ResponseEntity.ok(avatarService.findAllStudentAvatars(pageNumber,pageSize));
+    public ResponseEntity<List<Avatar>> downloadAllAvatar(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize) {
+        return ResponseEntity.ok(avatarService.findAllStudentAvatars(pageNumber, pageSize));
 
     }
 /*    @GetMapping(value = "/all-avatar-from-db")
@@ -76,4 +76,3 @@ public class AvatarController {
 
 
 }
-

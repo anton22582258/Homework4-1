@@ -15,11 +15,12 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+
 import org.slf4j.Logger;
 
 @Service
 public class AvatarService {
-    Logger logger = LoggerFactory.getLogger(AvatarService.class);
+    private final Logger logger = LoggerFactory.getLogger(AvatarService.class);
     private final AvatarRepository avatarRepository;
     private final StudentRepository studentRepository;
     private final String pathToAvatars;
@@ -31,7 +32,7 @@ public class AvatarService {
         this.pathToAvatars = pathToAvatars;
     }
 
-    public void save (Long studentId, MultipartFile multipartFile) throws IOException {
+    public void save(Long studentId, MultipartFile multipartFile) throws IOException {
         //save to db
         logger.info("Метод save to db был вызван");
         Avatar avatar = avatarRepository.findByStudentId(studentId).orElse(new Avatar());
@@ -52,7 +53,8 @@ public class AvatarService {
         avatar.setFilePath(filePath);
         avatarRepository.save(avatar);
     }
-    public Avatar getAvatar (Long studentId) {
+
+    public Avatar getAvatar(Long studentId) {
         logger.info("Метод getAvatar был вызван");
         return avatarRepository.findByStudentId(studentId).orElseThrow();
     }

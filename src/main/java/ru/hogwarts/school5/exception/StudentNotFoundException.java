@@ -24,5 +24,3 @@ public class StudentNotFoundException extends RuntimeException {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
-
-

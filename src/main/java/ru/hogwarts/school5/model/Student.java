@@ -69,4 +69,3 @@ public class Student {
         this.faculty = faculty;
     }
 }
-

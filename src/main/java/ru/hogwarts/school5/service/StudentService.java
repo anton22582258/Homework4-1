@@ -2,6 +2,7 @@ package ru.hogwarts.school5.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school5.exception.StudentNotFoundException;
 import ru.hogwarts.school5.model.Faculty;
@@ -10,11 +11,13 @@ import ru.hogwarts.school5.repository.StudentRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
 public class StudentService {
-    Logger logger = LoggerFactory.getLogger(StudentService.class);
+    private final Logger logger = LoggerFactory.getLogger(StudentService.class);
     private final StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository) {
@@ -62,6 +65,7 @@ public class StudentService {
         logger.info("Метод getByAgeBetween был вызван");
         return studentRepository.findAllByAgeBetween(min, max);
     }
+
     public Faculty getFacultyById(Long studentId) {
         logger.info("Метод getFacultyById был вызван");
         return studentRepository.findById(studentId).get().getFaculty();
@@ -81,8 +85,24 @@ public class StudentService {
         logger.info("Метод getLastFiveStudents был вызван");
         return studentRepository.getLastFiveStudents();
     }
+
     public List<Student> getStudentByName(String name) {
         logger.info("Метод getStudentByName был вызван");
         return studentRepository.getStudentByName(name);
+    }
+
+    public List<String> getStudentNamesStartingWithA() {
+        return studentRepository.findAll().stream()
+                .filter(s -> s.getName().charAt(0) == 'А')
+                .map(s -> s.getName().toUpperCase())
+                .sorted()
+                .toList();
+    }
+
+    public Double getAverageStudentAge() {
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .getAsDouble();
     }
 }

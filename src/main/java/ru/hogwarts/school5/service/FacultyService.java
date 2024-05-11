@@ -7,11 +7,14 @@ import ru.hogwarts.school5.model.Faculty;
 import ru.hogwarts.school5.repository.FacultyRepository;
 
 import java.util.Collection;
+
 import org.slf4j.Logger;
+
+import java.util.Comparator;
 
 @Service
 public class FacultyService {
-    Logger logger = LoggerFactory.getLogger(FacultyService.class);
+    private final Logger logger = LoggerFactory.getLogger(FacultyService.class);
     private final FacultyRepository facultyRepository;
 
     public FacultyService(FacultyRepository facultyRepository) {
@@ -59,4 +62,12 @@ public class FacultyService {
         logger.info("Метод getByNameOrColor был вызван");
         return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
+
+    public String getLongestFacultyName() {
+        return facultyRepository.findAll().stream()
+                .map(s -> s.getName())
+                .max(Comparator.comparingInt(String::length))
+                .get();
+    }
+
 }
