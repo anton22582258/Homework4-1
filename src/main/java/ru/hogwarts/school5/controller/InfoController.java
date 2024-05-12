@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 @RestController
 public class InfoController {
-    public final static Logger logger = LoggerFactory.getLogger(StudentController.class);
+    public final static Logger logger = LoggerFactory.getLogger(InfoController.class);
     @Value("${server.port}")
     private String port;
 
@@ -22,11 +22,19 @@ public class InfoController {
 
     @GetMapping("/calculateSum")
     public int calculateSum() {
+        int sum;
         long startTime = System.currentTimeMillis();
-        int sum = IntStream.iterate(1, a -> a + 1)
+        sum = Stream.iterate(1, a -> a + 1)
                 .limit(1_000_000)
                 .reduce(0, (a, b) -> a + b);
-        logger.info("Performing time: {}", System.currentTimeMillis() - startTime);
+        logger.info("Performing time 1:" + (System.currentTimeMillis() - startTime));
+
+
+        startTime = System.currentTimeMillis();
+        sum = IntStream.range(1, 1_000_000)
+                .parallel()
+                .sum();
+        logger.info("Performing time 2:" + (System.currentTimeMillis() - startTime));
         return sum;
     }
 

@@ -98,6 +98,14 @@ public class StudentService {
                 .sorted()
                 .toList();
     }
+   /* public List<String> getStudentNamesStartingWithA() {
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .filter(s -> s.startsWith("A"))
+                .map(String::toUpperCase)
+                .sorted()
+                .toList();
+    }*/
 
     public Double getAverageStudentAge() {
         return studentRepository.findAll().stream()
@@ -105,4 +113,11 @@ public class StudentService {
                 .average()
                 .getAsDouble();
     }
+   /* public double getAverageStudentAge() {
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(-1);
+    }*/
+
 }
